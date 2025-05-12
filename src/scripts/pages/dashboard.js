@@ -181,5 +181,4 @@ const createDashboard = () => {
   const footer = document.createElement('footer-component');
   document.body.appendChild(footer);
 };
-
 export default createDashboard;

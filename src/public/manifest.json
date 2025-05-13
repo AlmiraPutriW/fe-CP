@@ -1,7 +1,7 @@
 {
-    "name": "SIPRAJA - Sistem Informasi Pelaporan Infrastruktur Jogja",
-    "short_name": "SIPRAJA",
-    "description": "Aplikasi untuk melaporkan infrastruktur daerah Jogja",
+    "name": "SIPRASA - Sistem Informasi Pelaporan Infrastruktur Surakarta",
+    "short_name": "SIPRASA",
+    "description": "Aplikasi untuk melaporkan infrastruktur daerah Surakarta",
     "start_url": "./index.html",        
     "display": "standalone",      
     "background_color": "#ffffff",

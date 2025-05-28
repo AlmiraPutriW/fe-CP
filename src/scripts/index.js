@@ -87,62 +87,62 @@ const getLaporanIdFromUrl = () => {
 function handleHashChange() {
   const currentHash = window.location.hash;
   document.body.innerHTML = '';
-  if (currentHash === '#/login') {
+  if (currentHash === '/login') {
     renderLoginPage();
-  } else if (currentHash === '#/register') {
+  } else if (currentHash === '/register') {
     renderRegisterPage();
-  } else if (currentHash === '#/lupa-sandi') {
+  } else if (currentHash === '/lupa-sandi') {
     renderForgetPasswordPage();
-  } else if (currentHash.startsWith('#/reset-password')) {
+  } else if (currentHash.startsWith('/reset-password')) {
     renderResetPassword();
-  } else if (currentHash.startsWith('#/konfirmasi')) {
+  } else if (currentHash.startsWith('/konfirmasi')) {
     const id = currentHash.split('/').pop();
     if (id) {
       createKonfirmasi(id);
     } else {
       Swal.fire('Error', 'ID not found in the URL', 'error');
     }
-  } else if (currentHash === '#/dashboard') {
+  } else if (currentHash === '/dashboard') {
     createDashboard();
-  } else if (currentHash === '#/create-laporan') {
+  } else if (currentHash === '/create-laporan') {
     createDetailLaporanPage();
-  } else if (currentHash === '#/dashboard-admin') {
+  } else if (currentHash === '/dashboard-admin') {
     createDashboardAdmin();
-  } else if (currentHash === '#/laporan-admin') {
+  } else if (currentHash === '/laporan-admin') {
     createLaporanAdmin();
-  } else if (currentHash === '#/arsip-admin') {
+  } else if (currentHash === '/arsip-admin') {
     createArsipAdmin();
-  } else if (currentHash === '#/profil-admin') {
+  } else if (currentHash === '/profil-admin') {
     createProfilAdmin();
-  } else if (currentHash === '#/about') {
+  } else if (currentHash === '/about') {
     createAboutPage();
-  } else if (currentHash === '#/laporan') {
+  } else if (currentHash === '/laporan') {
     createLaporanPage();
-  } else if (currentHash === '#/laporan-user') {
+  } else if (currentHash === '/laporan-user') {
     createLaporanPageUser();
-  } else if (currentHash === '#/notifikasi') {
+  } else if (currentHash === '/notifikasi') {
     createNotificationPage();
-  } else if (currentHash === '#/profile') {
+  } else if (currentHash === '/profile') {
     createProfilePage();
-  } else if (currentHash.startsWith('#/detailnya')) {
+  } else if (currentHash.startsWith('/detailnya')) {
     const laporanId = getLaporanIdFromUrl();
     if (laporanId) {
       createDetailnyaPage(laporanId);
     } else {
       document.body.innerHTML = '<p>Error: ID laporan tidak ditemukan di URL.</p>';
     }
-  } else if (currentHash.startsWith('#/edit-laporan')) {
+  } else if (currentHash.startsWith('/edit-laporan')) {
     const laporanId = getLaporanIdFromUrl();
     if (laporanId && laporanId.trim() !== '') {
       createEditLaporanPage(laporanId);
     } else {
       document.body.innerHTML = '<p>Error: ID laporan tidak valid atau tidak ditemukan di URL.</p>';
     }
-  } else if (currentHash === '#/updateprofile') {
+  } else if (currentHash === '/updateprofile') {
     renderUpdatePage();
-  } else if (currentHash === '#/ubah-sandi') {
+  } else if (currentHash === '/ubah-sandi') {
     renderResetPasswordPage();
-  } else if (!currentHash || currentHash === '#/') {
+  } else if (!currentHash || currentHash === 'dashboard/') {
     renderHomePage();
   } else {
     document.body.innerHTML = '<p>Error 404: Halaman tidak ditemukan.</p>';

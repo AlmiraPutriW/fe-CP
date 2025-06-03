@@ -36,12 +36,14 @@ const fetchLaporanDetail = async (id) => {
 };
 
 const updateLaporanDetail = async (id, updatedData) => {
+  const userId = localStorage.getItem('userId');
+  const authToken = localStorage.getItem('authToken');
   try {
     const response = await fetch(`${ENDPOINT.PUTLAPORAN}${id}`, {
       method: 'PUT',
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authToken}`,
       },
       body: JSON.stringify(updatedData),
     });

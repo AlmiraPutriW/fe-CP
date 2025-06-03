@@ -32,15 +32,27 @@ const fetchLaporanDetail = async (id) => {
   }
 };
 
-const updateLaporanDetail = async (id, updatedData) => {
+// ✅ Versi update pakai FormData, bisa kirim foto
+const updateLaporanDetail = async (id, updatedData, files) => {
   try {
+    const formData = new FormData();
+    formData.append('judul', updatedData.judul);
+    formData.append('nama', updatedData.nama);
+    formData.append('tanggal', updatedData.tanggal);
+    formData.append('kategori', updatedData.kategori);
+    formData.append('lokasi', updatedData.lokasi);
+    formData.append('description', updatedData.description);
+
+    if (files && files.length > 0) {
+      Array.from(files).forEach((file) => {
+        formData.append('gambar_pendukung', file);
+      });
+    }
+
     const response = await fetch(`${ENDPOINT.PUTLAPORAN}${id}`, {
       method: 'PUT',
       credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedData),
+      body: formData, // jangan set Content-Type manual
     });
 
     if (!response.ok) {
@@ -82,7 +94,7 @@ const createEditLaporanPage = async () => {
       <form id="form-laporan" class="form-container">
         <div class="form-group">
           <label for="nama">Nama Pelapor</label>
-          <input type="text" id="nama" name="nama" placeholder="Masukkan Nama Anda" value="${laporan.nama || ''}" required>
+          <input type="text" id="nama" name="nama" value="${laporan.nama || ''}" required>
         </div>
 
         <div class="form-group">
@@ -92,27 +104,28 @@ const createEditLaporanPage = async () => {
 
         <div class="form-group">
           <label for="judul">Judul Laporan</label>
-          <input type="text" id="judul" name="judul" placeholder="Masukkan Judul Laporan" value="${laporan.judul || ''}" required>
+          <input type="text" id="judul" name="judul" value="${laporan.judul || ''}" required>
         </div>
 
         <div class="form-group">
           <label for="kategori">Kategori Laporan</label>
           <select id="kategori" name="kategori" required>
-            <option value="" disabled selected>Pilih Kategori</option>
+            <option value="" disabled>Pilih Kategori</option>
             <option value="Jembatan" ${laporan.kategori === 'Jembatan' ? 'selected' : ''}>Jembatan</option>
             <option value="Jalan" ${laporan.kategori === 'Jalan' ? 'selected' : ''}>Jalan</option>
             <option value="Lalu Lintas" ${laporan.kategori === 'Lalu Lintas' ? 'selected' : ''}>Lalu Lintas</option>
             <option value="Lainnya" ${laporan.kategori === 'Lainnya' ? 'selected' : ''}>Lainnya</option>
           </select>
         </div>
+
         <div class="form-group">
           <label for="lokasi">Lokasi</label>
-          <input type="text" id="lokasi" name="lokasi" placeholder="Masukkan Lokasi" value="${laporan.lokasi || ''}" required>
+          <input type="text" id="lokasi" name="lokasi" value="${laporan.lokasi || ''}" required>
         </div>
 
         <div class="form-group">
           <label for="deskripsi">Deskripsi Masalah</label>
-          <textarea id="deskripsi" name="description" placeholder="Masukkan Deskripsi Masalah" rows="5" required>${laporan.description || ''}</textarea>
+          <textarea id="deskripsi" name="description" rows="5" required>${laporan.description || ''}</textarea>
         </div>
 
         <div class="form-group">
@@ -137,7 +150,6 @@ const createEditLaporanPage = async () => {
     fotoInput.addEventListener('change', () => {
       previewContainer.innerHTML = '';
       const files = Array.from(fotoInput.files);
-
       files.forEach((file) => {
         const reader = new FileReader();
         reader.onload = (e) => {
@@ -170,8 +182,10 @@ const createEditLaporanPage = async () => {
         description: document.getElementById('deskripsi').value,
       };
 
+      const files = document.getElementById('foto').files;
+
       try {
-        await updateLaporanDetail(laporanId, updatedData);
+        await updateLaporanDetail(laporanId, updatedData, files);
         await Swal.fire({
           icon: 'success',
           title: 'Berhasil',
@@ -179,11 +193,9 @@ const createEditLaporanPage = async () => {
         });
 
         saveButton.innerHTML = 'Disimpan';
-
-        // Redirect after a short delay
         setTimeout(() => {
           window.location.hash = '/laporan';
-        }, 1500); // Delay before redirect
+        }, 1500);
       } catch (error) {
         await Swal.fire({
           icon: 'error',

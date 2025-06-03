@@ -14,7 +14,6 @@ const fetchLaporan = async () => {
       method: 'GET',
       credentials: 'include',
       headers: {
-        "Authorization": "Bearer " + token, // jika pakai header
     "Content-Type": "application/json"
       },
     });

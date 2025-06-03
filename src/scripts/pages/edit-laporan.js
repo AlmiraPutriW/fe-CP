@@ -13,7 +13,6 @@ const fetchLaporanDetail = async (id) => {
   const userId = localStorage.getItem('userId');
   const authToken = localStorage.getItem('authToken');
   try {
-    
     const response = await fetch(`${ENDPOINT.GETLAPORAN}${id}`, {
       method: 'GET',
       credentials: 'include',
@@ -37,15 +36,11 @@ const fetchLaporanDetail = async (id) => {
 };
 
 const updateLaporanDetail = async (id, updatedData) => {
-  
-  const userId = localStorage.getItem('userId');
-  const authToken = localStorage.getItem('authToken');
   try {
     const response = await fetch(`${ENDPOINT.PUTLAPORAN}${id}`, {
       method: 'PUT',
       credentials: 'include',
       headers: {
-        Authorization: `Bearer ${authToken}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(updatedData),

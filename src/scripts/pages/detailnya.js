@@ -11,11 +11,13 @@ const getLaporanIdFromUrl = () => {
 };
 
 const fetchLaporanDetail = async (id) => {
+  Authorization: `Bearer ${authToken}`,
   try {
     const response = await fetch(`${ENDPOINT.GETLAPORAN}${id}`, {
       method: 'GET',
       credentials: 'include',
       headers: {
+        Authorization: `Bearer ${authToken}`,
         'Content-Type': 'application/json',
       },
     });

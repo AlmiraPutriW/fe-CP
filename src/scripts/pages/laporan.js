@@ -9,11 +9,16 @@ import createDetailLaporanPage from './detail-laporan.js';
 import ENDPOINT from '../globals/endpoint';
 
 const fetchLaporan = async () => {
+
+  const userId = localStorage.getItem('userId');
+  const authToken = localStorage.getItem('authToken');
+  
   try {
     const response = await fetch(ENDPOINT.GETLAPORAN, {
       method: 'GET',
       credentials: 'include',
       headers: {
+        Authorization: `Bearer ${authToken}`,
     "Content-Type": "application/json"
       },
     });

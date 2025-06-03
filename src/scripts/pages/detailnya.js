@@ -11,7 +11,8 @@ const getLaporanIdFromUrl = () => {
 };
 
 const fetchLaporanDetail = async (id) => {
-  Authorization: `Bearer ${authToken}`,
+  const userId = localStorage.getItem('userId');
+  const authToken = localStorage.getItem('authToken');
   try {
     const response = await fetch(`${ENDPOINT.GETLAPORAN}${id}`, {
       method: 'GET',

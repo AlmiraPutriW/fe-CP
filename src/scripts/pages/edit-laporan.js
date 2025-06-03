@@ -10,14 +10,11 @@ const getLaporanIdFromUrl = () => {
 };
 
 const fetchLaporanDetail = async (id) => {
-  const userId = localStorage.getItem('userId');
-  const authToken = localStorage.getItem('authToken');
   try {
     const response = await fetch(`${ENDPOINT.GETLAPORAN}${id}`, {
       method: 'GET',
       credentials: 'include',
       headers: {
-        Authorization: `Bearer ${authToken}`,
         'Content-Type': 'application/json',
       },
     });
@@ -36,14 +33,12 @@ const fetchLaporanDetail = async (id) => {
 };
 
 const updateLaporanDetail = async (id, updatedData) => {
-  const userId = localStorage.getItem('userId');
-  const authToken = localStorage.getItem('authToken');
   try {
     const response = await fetch(`${ENDPOINT.PUTLAPORAN}${id}`, {
       method: 'PUT',
       credentials: 'include',
       headers: {
-        Authorization: `Bearer ${authToken}`,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(updatedData),
     });
@@ -156,7 +151,7 @@ const createEditLaporanPage = async () => {
     });
 
     document.getElementById('cancel-button').addEventListener('click', () => {
-      window.location.hash = `#/detailnya?id=${laporanId}`;
+      window.location.hash = `/detailnya?id=${laporanId}`;
     });
 
     document.getElementById('form-laporan').addEventListener('submit', async (e) => {
@@ -187,7 +182,7 @@ const createEditLaporanPage = async () => {
 
         // Redirect after a short delay
         setTimeout(() => {
-          window.location.hash = '#/laporan';
+          window.location.hash = '/laporan';
         }, 1500); // Delay before redirect
       } catch (error) {
         await Swal.fire({

@@ -137,13 +137,16 @@ const createDetailLaporanPage = async () => {
     submitButton.classList.add('loading');
 
     const formData = new FormData(form);
+    const authToken = localStorage.getItem('authToken');
 
     try {
-      const response = await fetch(ENDPOINT.CREATELAPORAN, {
-        method: 'POST',
-        credentials: 'include',
-        body: formData,
-      });
+      method: 'POST',
+  credentials: 'include',
+  headers: {
+    Authorization: `Bearer ${authToken}`,
+    // jangan set Content-Type di sini karena FormData akan mengurusnya
+  },
+  body: formData,
 
       if (!response.ok) {
         const errorData = await response.json();
